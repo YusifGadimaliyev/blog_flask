@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{{ url_for("static", filename="img/contact-bg.jpg") }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>{{ title }}</h1>
+                        <hr class="small">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Title</label>
+                            {{ form.title(class="form-control", placeholder="Title") }}
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Subtitle</label>
+                            {{ form.subtitle(class="form-control", placeholder="Subtitle") }}
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Content</label>
+                            {{ form.content(class="form-control", placeholder="Content", rows="7") }}
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+{% endblock %}

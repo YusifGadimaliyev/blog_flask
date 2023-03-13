@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{{ url_for("static", filename="img/post-bg.jpg") }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{ post.title }}</h1>
+                        <h2 class="subheading">{{ post.subtitle }}</h2>
+                        <span class="meta">Posted by <a href="#">{{ post.user.name }}</a> on {{ post.post_date.strftime("%Y-%m-%d, %H:%M") }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p>{{ post.content }}</p>
+                    {% if post.user == current_user %}
+                    <a class="btn btn-primary" href="{{ url_for('post_update', post_id=post.id) }}">Edit</a>
+                    <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+{% endblock content %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+
+    <header class="intro-header" style="background-image: url('{{ url_for("static", filename="img/home-bg.jpg") }}')">
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clean Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+
+                {% for post in posts %}
+                <div class="post-preview">
+                    <a href="{{ url_for('post_details', post_id=post.id) }}">
+                        <h2 class="post-title">
+                            {{ post.title }}
+                        </h2>
+                        <h3 class="post-subtitle">
+                            {{ post.subtitle }}
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">{{ post.user.name }}</a> on <i id="post_date">"{{ post.post_date }}"</i></p> <!--i want to set posting time 'now, ... minut age, ... day ago, date time'-->
+                </div>
+                <hr>
+                {% endfor %}
+
+                <!-- Pager -->
+                <ul class="pager">
+                    {% if next_url %}
+                    <li class="next">
+                        <a href="{{ next_url }}">Older Posts &rarr;</a>
+                    </li>
+                    {% endif %}
+
+                    {% if prev_url %}
+                    <li class="prev">
+                        <a href="{{ prev_url }}">&larr; Older Posts</a>
+                    </li>
+                    {% endif %}
+                    {% if page > 1 %}
+                    <li class="current">
+                        <a href="">{{ page }}</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+
+    <hr>
+
+{% endblock %}
+
+
